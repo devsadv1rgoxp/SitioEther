@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Ether | Nuestro Trabajo</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('img/about_us.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            background-color: rgba(26, 26, 26, 0.8);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .menu-icon {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-icon span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-icon.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-icon.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .content-section {
+            max-width: 1000px;
+            margin: 120px auto 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-icon {
+            position: fixed;
+
+            bottom: 30px;
+
+            right: 30px;
+
+            z-index: 300;
+
+            display: inline-block;
+
+            width: 60px;
+
+            height: 60px;
+
+        }
+
+        .modal-btn img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .popup-icon button {
+            background-color: transparent;
+            outline: none;
+            border: none;
+        }
+
+        .content-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            text-align: center;
+        }
+
+        .content-section p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        footer {
+            background-color: rgba(26, 26, 26, 0.8);
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+
+        .overlay-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .overlay-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .main-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .main-menu ul li {
+            margin: 25px 0;
+        }
+
+        .main-menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        .main-menu ul li a:hover {
+            color: #14e2bb;
+        }
+
+        .main-menu p {
+            margin-top: 40px;
+            font-style: italic;
+            color: #aaa;
+        }
+
+        /* Coverflow Styles */
+        .coverflow-section {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .coverflow-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .coverflow-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1200px;
+            position: relative;
+        }
+
+        .coverflow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+
+        .coverflow-item {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .coverflow-item .cover {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            background: #333;
+        }
+
+        .coverflow-item .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .coverflow-item .reflection {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            transform: scaleY(-1);
+            opacity: 0.2;
+            filter: blur(2px);
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0) 0%,
+                    rgba(0, 0, 0, 0.8) 50%,
+                    rgba(0, 0, 0, 1) 100%);
+            overflow: hidden;
+        }
+
+        .coverflow-item.active {
+            z-index: 100;
+            transform: translateX(0) translateZ(0) rotateY(0deg);
+        }
+
+        .coverflow-item.active .cover {
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 200;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-button.prev {
+            left: 50px;
+        }
+
+        .nav-button.next {
+            right: 50px;
+        }
+
+        .dots-container {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 200;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #14e2bb;
+            transform: scale(1.3);
+        }
+
+        .info-container {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 200;
+            padding: 0 20px;
+        }
+
+        .info {
+            display: inline-block;
+            background: rgba(61, 60, 60, 0.6);
+            padding: 15px 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            max-width: 80%;
+        }
+
+        .info h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeIn 0.6s forwards;
+            color: white;
+        }
+
+        .info p {
+            font-size: 16px;
+            opacity: 0.7;
+            color: #e0e0e0;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .play-pause-button {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 200;
+        }
+
+        .play-pause-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        .play-pause-button .pause-icon {
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+
+        .section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 0;
+        }
+
+        #about {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+        }
+
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            color: white;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .about-header h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f8fcfb 0%, #f5f8f8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-header p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .about-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .showcase-display {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .showcase-main {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border-radius: 30px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .showcase-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 20px;
+        }
+
+        .corner-decoration {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(20, 226, 187, 0.5);
+        }
+
+        .corner-decoration.top-left {
+            top: -20px;
+            left: -20px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 20px 0 0 0;
+        }
+
+        .corner-decoration.bottom-right {
+            bottom: -20px;
+            right: -20px;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 20px 0;
+        }
+
+        .about-info {
+            padding-left: 40px;
+        }
+
+        .about-info h3 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            line-height: 1.3;
+            color: #f9fafa;
+        }
+
+        .about-info p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #14e2bb 0%, #0a8f72 100%);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(20, 226, 187, 0.5);
+        }
+
+        .cta-button svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(5px);
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 60px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(20, 226, 187, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #feffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .stat-label {
+            font-size: 22px;
+            font-weight: 600;
+            color: #14e2bb;
+        }
+
+        @media (max-width: 1024px) {
+            .about-main {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .about-visual {
+                height: 400px;
+            }
+
+            .about-info {
+                padding-left: 0;
+                text-align: center;
+            }
+
+            .feature-list {
+                text-align: left;
+                max-width: 500px;
+                margin: 0 auto 40px;
+            }
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .coverflow-item {
+                width: 200px;
+                height: 200px;
+            }
+
+            .nav-button {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .nav-button.prev {
+                left: 20px;
+            }
+
+            .nav-button.next {
+                right: 20px;
+            }
+
+            .info h2 {
+                font-size: 24px;
+            }
+
+            .info p {
+                font-size: 14px;
+            }
+
+            .info-container {
+                top: 15%;
+            }
+
+            .content-section {
+                margin-top: 100px;
+                padding: 20px;
+            }
+
+            .about-content {
+                padding: 20px;
+            }
+
+            .about-header h2 {
+                font-size: 36px;
+            }
+
+            .about-visual {
+                height: 400px;
+            }
+
+            .showcase-display {
+                max-width: 350px;
+                height: 400px;
+            }
+
+            .showcase-main {
+                height: 350px;
+                padding: 15px;
+            }
+
+            .about-info h3 {
+                font-size: 28px;
+            }
+
+            .corner-decoration {
+                display: none;
+            }
+
+            .stat-number {
+                font-size: 36px;
+            }
+
+            .stat-label {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .coverflow-item {
+                width: 180px;
+                height: 180px;
+            }
+
+            .info h2 {
+                font-size: 20px;
+            }
+
+            .info p {
+                font-size: 12px;
+            }
+
+            .info-container {
+                top: 12%;
+            }
+
+            .nav-button {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .nav-button.prev {
+                left: 10px;
+            }
+
+            .nav-button.next {
+                right: 10px;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 30px 20px;
+            }
+
+            .stat-label {
+                font-size: 16px;
+            }
+        }
+
+        footer .social-links {
+            margin-top: 15px;
+        }
+
+        footer .social-links a img {
+            filter: invert(100%);
+            transition: all 0.3s ease;
+        }
+
+        footer .social-links a img:hover {
+            filter: invert(72%) sepia(65%) saturate(503%) hue-rotate(122deg) brightness(95%) contrast(92%);
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="img/Logo PNG.png" alt="Ether" class="logo">
+        </div>
+        <div class="menu-icon" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="coverflow-section">
+        <div class="coverflow-wrapper">
+            <div class="info-container">
+                <div class="info">
+                    <h2 id="current-title">Sushi Delight</h2>
+                    <p id="current-description">Exquisite sushi prepared by master chefs</p>
+                </div>
+            </div>
+
+            <div class="coverflow-container" tabindex="0">
+                <div class="coverflow" id="coverflow">
+                    <div class="coverflow-item" data-index="0">
+                        <div class="cover">
+                            <img src="img/Sushi1.jpg" alt="Sushi Delight" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                    <div class="coverflow-item" data-index="1">
+                        <div class="cover">
+                            <img src="img/4.jpg" alt="Forest Path" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                    <div class="coverflow-item" data-index="2">
+                        <div class="cover">
+                            <img src="img/2.jpg" alt="Lake Reflection" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                    <div class="coverflow-item" data-index="3">
+                        <div class="cover">
+                            <img src="img/7.jpg" alt="Ocean Sunset" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                    <div class="coverflow-item" data-index="4">
+                        <div class="cover">
+                            <img src="img/1.jpg" alt="Desert Dunes" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                    <div class="coverflow-item" data-index="5">
+                        <div class="cover">
+                            <img src="img/5.jpg" alt="Starry Night" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                    <div class="coverflow-item" data-index="6">
+                        <div class="cover">
+                            <img src="img/3.jpg" alt="Waterfall" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                    <div class="coverflow-item" data-index="7">
+                        <div class="cover">
+                            <img src="img/revelacion.jpg" alt="Gourmet Dish" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                    <div class="coverflow-item" data-index="8">
+                        <div class="cover">
+                            <img src="img/chico.jpg" alt="Portrait Session" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                    <div class="coverflow-item" data-index="9">
+                        <div class="cover">
+                            <img src="img/Kaki Kaapeh.jpg" alt="Coffee Art" loading="lazy">
+                        </div>
+                        <div class="reflection"></div>
+                    </div>
+                </div>
+
+                <button class="nav-button prev" onclick="navigate(-1)">‹</button>
+                <button class="nav-button next" onclick="navigate(1)">›</button>
+
+                <div class="dots-container" id="dots"></div>
+
+                <button class="play-pause-button" id="playPauseBtn" onclick="toggleAutoplay()">
+                    <span class="play-icon">▶</span>
+                    <span class="pause-icon" style="display: none;">❚❚</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="about-content">
+            <div class="about-header">
+                <h2>Nuestro Trabajo</h2>
+                <p>Somos un negocio de producción audiovisual especializado en eventos</p>
+            </div>
+
+            <div class="about-main">
+                <div class="about-visual">
+                    <div class="showcase-display">
+                        <div class="showcase-main">
+                            <div class="corner-decoration top-left"></div>
+                            <div class="corner-decoration bottom-right"></div>
+                            <img src="img/Promocion.png" alt="Promoción Ether AudioVisual" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-info">
+                    <h3>Eleva tu Experiencia Audiovisual</h3>
+                    <p>Ether AudioVisual es tu socio ideal para transformar cualquier evento en una experiencia
+                        memorable. Con tecnología de punta y un equipo de profesionales creativos, nos encargamos de
+                        cada detalle para que tú solo te preocupes por disfrutar.</p>
+                    <p>Desde pequeños eventos privados hasta grandes festivales y marketing corporativo adaptado a tu
+                        negocio, nuestro enfoque personalizado garantiza resultados excepcionales que superan
+                        expectativas.</p>
+
+                    <ul class="feature-list">
+                        <li>Equipamento profesional de alta calidad</li>
+                        <li>Iluminación escénica impactante</li>
+                        <li>Video y proyecciones inmersivas</li>
+                        <li>Escenografía personalizada</li>
+                    </ul>
+
+                    <a href="contacto.html" class="cta-button">
+                        Inicia tu Proyecto
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" />
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="stat-number">Posiciona</div>
+                    <div class="stat-label">tu negocio</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Equipo</div>
+                    <div class="stat-label">100% Profesional</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Calidad</div>
+                    <div class="stat-label">Garantizado</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Creatividad sin límites</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <p> Creado por Ether AudioVisual &copy; </p>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.instagram.com/ether_audiovisual?igsh=YjFpbWpwcHpteHg=">
+                <img src="img/instagram-brands-solid-full.svg" alt="Instagram" width="30" height="30">
+            </a>
+            <a href="https://www.facebook.com/share/1EyEnYFTEj/?mibextid=wwXIfr">
+                <img src="img/facebook-brands-solid-full.svg" alt="Facebook" width="30" height="30">
+            </a>
+            <a href="https://www.tiktok.com/@ether.audiovisual?_t=ZS-8zNErN05z3Y&_r=1">
+                <img src="img/tiktok-brands-solid-full.svg" alt="TikTok" width="30" height="30">
+            </a>
+        </div>
+    </footer>
+
+    <div class="popup-icon">
+        <a href="https://wa.me/+524561863012">
+            <button id="modBtn" class="modal-btn"><img src="img/whatsapp.png" alt="WhatsApp Business"></button>
+
+        </a>
+    </div>
+
+    <section class="overlay-menu">
+        <div class="container">
+            <div class="row">
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="inicio.html"> INICIO </a>
+                        </li>
+                        <li>
+                            <a href="nuestrotrabajo.html"> NUESTRO TRABAJO </a>
+                        </li>
+                        <li>
+                            <a href="quehacemos.html"> ¿QUÉ HACEMOS? </a>
+                        </li>
+                        <li>
+                            <a href="contacto.html"> CONTACTO </a>
+                        </li>
+                    </ul>
+                    <p>Creamos sellos únicos para tú marca.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const items = document.querySelectorAll('.coverflow-item');
+        const dotsContainer = document.getElementById('dots');
+        const currentTitle = document.getElementById('current-title');
+        const currentDescription = document.getElementById('current-description');
+        const container = document.querySelector('.coverflow-container');
+        const menuToggle = document.getElementById('menuToggle');
+        const overlayMenu = document.querySelector('.overlay-menu');
+        let currentIndex = 3;
+        let isAnimating = false;
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            overlayMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.overlay-menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                overlayMenu.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !overlayMenu.contains(e.target) && overlayMenu.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+                overlayMenu.classList.remove('active');
+            }
+        });
+
+        const imageData = [
+            {
+                title: "Contenido - Sushi Samurai",
+                description: "Colores que despiertan el apetito"
+            },
+            {
+                title: "Concierto - Valle Fest",
+                description: "Captando momentos únicos"
+            },
+            {
+                title: "Recital - Academia Cambré",
+                description: "Elegancia congelada en un instante"
+            },
+            {
+                title: "Contenido - Sushi Samurai",
+                description: "Fotografía que se saborea"
+            },
+            {
+                title: "Evento - Bautizo",
+                description: "Un día que quedará en la memoria"
+            },
+            {
+                title: "Sesión de fotografía - Personal",
+                description: "Luz que resalta su esencia"
+            },
+            {
+                title: "Fotografía y Video - XV Años",
+                description: "Brillo que se recuerda siempre"
+            },
+            {
+                title: "Fotografía - Revelación de Género",
+                description: "Un secreto a punto de brillar"
+            },
+            {
+                title: "Sesión de fotografía - Personal",
+                description: "Estilo que trasciende"
+            },
+            {
+                title: "Contenido - Kaki Kaapeh",
+                description: "Sabores que se ven y se sienten"
+            }
+        ];
+
+        items.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.onclick = () => goToIndex(index);
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+        let autoplayInterval = null;
+        let isPlaying = true;
+        const playIcon = document.querySelector('.play-icon');
+        const pauseIcon = document.querySelector('.pause-icon');
+
+        function updateCoverflow() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            items.forEach((item, index) => {
+                let offset = index - currentIndex;
+
+                if (offset > items.length / 2) {
+                    offset = offset - items.length;
+                }
+                else if (offset < -items.length / 2) {
+                    offset = offset + items.length;
+                }
+
+                const absOffset = Math.abs(offset);
+                const sign = Math.sign(offset);
+
+                let translateX = offset * 220;
+                let translateZ = -absOffset * 200;
+                let rotateY = -sign * Math.min(absOffset * 60, 60);
+                let opacity = 1 - (absOffset * 0.2);
+                let scale = 1 - (absOffset * 0.1);
+
+                if (absOffset > 3) {
+                    opacity = 0;
+                    translateX = sign * 800;
+                }
+
+                item.style.transform = `
+                    translateX(${translateX}px) 
+                    translateZ(${translateZ}px) 
+                    rotateY(${rotateY}deg)
+                    scale(${scale})
+                `;
+                item.style.opacity = opacity;
+                item.style.zIndex = 100 - absOffset;
+
+                item.classList.toggle('active', index === currentIndex);
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+
+            const currentData = imageData[currentIndex];
+            currentTitle.textContent = currentData.title;
+            currentDescription.textContent = currentData.description;
+
+            currentTitle.style.animation = 'none';
+            currentDescription.style.animation = 'none';
+            setTimeout(() => {
+                currentTitle.style.animation = 'fadeIn 0.6s forwards';
+                currentDescription.style.animation = 'fadeIn 0.6s forwards';
+            }, 10);
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, 600);
+        }
+
+        function navigate(direction) {
+            if (isAnimating) return;
+
+            currentIndex = currentIndex + direction;
+
+            if (currentIndex < 0) {
+                currentIndex = items.length - 1;
+            } else if (currentIndex >= items.length) {
+                currentIndex = 0;
+            }
+
+            updateCoverflow();
+        }
+
+        function goToIndex(index) {
+            if (isAnimating || index === currentIndex) return;
+            currentIndex = index;
+            updateCoverflow();
+        }
+
+        container.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+        });
+
+        items.forEach((item, index) => {
+            item.addEventListener('click', () => goToIndex(index));
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
+        let isSwiping = false;
+
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+            isSwiping = true;
+        }, { passive: true });
+
+        container.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+
+            const currentX = e.changedTouches[0].screenX;
+            const diff = currentX - touchStartX;
+
+            if (Math.abs(diff) > 10) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        container.addEventListener('touchend', (e) => {
+            if (!isSwiping) return;
+
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+            isSwiping = false;
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 30;
+            const diffX = touchStartX - touchEndX;
+            const diffY = touchStartY - touchEndY;
+
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
+                handleUserInteraction();
+
+                if (diffX > 0) {
+                    navigate(1);
+                } else {
+                    navigate(-1);
+                }
+            }
+        }
+
+        items.forEach((item, index) => {
+            const img = item.querySelector('img');
+            const reflection = item.querySelector('.reflection');
+
+            img.onload = function () {
+                reflection.style.backgroundImage = `url(${this.src})`;
+                reflection.style.backgroundSize = 'cover';
+                reflection.style.backgroundPosition = 'center';
+            };
+        });
+
+        function startAutoplay() {
+            autoplayInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % items.length;
+                updateCoverflow();
+            }, 4000);
+            isPlaying = true;
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+        }
+
+        function stopAutoplay() {
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+            }
+            isPlaying = false;
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        }
+
+        function toggleAutoplay() {
+            if (isPlaying) {
+                stopAutoplay();
+            } else {
+                startAutoplay();
+            }
+        }
+
+        function handleUserInteraction() {
+            stopAutoplay();
+        }
+
+        items.forEach((item) => {
+            item.addEventListener('click', handleUserInteraction);
+        });
+
+        document.querySelector('.nav-button.prev').addEventListener('click', handleUserInteraction);
+        document.querySelector('.nav-button.next').addEventListener('click', handleUserInteraction);
+
+        dots.forEach((dot) => {
+            dot.addEventListener('click', handleUserInteraction);
+        });
+
+        container.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                handleUserInteraction();
+            }
+        });
+
+        updateCoverflow();
+        container.focus();
+        startAutoplay();
+    </script>
+
+</body>
+
+</html>

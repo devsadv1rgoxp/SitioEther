@@ -1,0 +1,84 @@
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; }
+
+/* Navbar */
+.navbar {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 15px 40px;
+  background: rgba(0,0,0,0.7); position: fixed; width: 100%; top: 0; z-index: 999;
+}
+.navbar .logo img { height: 50px; }
+.nav-links { display: flex; list-style: none; gap: 20px; }
+.nav-links li a { color: white; text-decoration: none; font-weight: bold; }
+.menu-toggle { display: none; font-size: 28px; color: white; cursor: pointer; }
+
+/* Hero video */
+.hero { position: relative; height: 100vh; overflow: hidden; }
+#bg-video { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+.inner {
+  position: relative; z-index: 2; text-align: center; top: 40%; color: white;
+}
+.inner p { font-size: 1.5rem; }
+
+/* Galería */
+.galeria { padding: 80px 20px; text-align: center; }
+.grid-galeria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
+.grid-galeria .item { position: relative; overflow: hidden; }
+.grid-galeria img { width: 100%; display: block; transition: transform 0.5s; }
+.grid-galeria .overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.6); color: white; padding: 10px; opacity: 0;
+  transition: opacity 0.3s;
+}
+.grid-galeria .item:hover img { transform: scale(1.1); }
+.grid-galeria .item:hover .overlay { opacity: 1; }
+
+/* Clientes slider */
+.slider { overflow: hidden; height: 150px; margin: 50px auto; }
+.slide-track { display: flex; animation: scroll 20s linear infinite; }
+.slide { min-width: 200px; margin: 0 20px; }
+.slide img { max-height: 100px; }
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Footer */
+footer { background: #333; color: #fff; text-align: center; padding: 20px; margin-top: 40px; }
+
+/* Responsive */
+@media(max-width: 768px) {
+  .nav-links { display: none; flex-direction: column; background: #000; position: absolute; top: 60px; right: 0; width: 200px; }
+  .nav-links.active { display: flex; }
+  .menu-toggle { display: block; }
+  .grid-galeria { grid-template-columns: repeat(2, 1fr); }
+}
+
+footer {
+  background-color: rgba(26, 26, 26, 0.9);
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  margin-top: 50px;
+}
+
+footer .social-links {
+  margin-top: 15px;
+}
+
+footer .social-links a {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+footer .social-links a img {
+  filter: invert(100%); /* hace los SVG blancos si son negros */
+  transition: all 0.3s ease;
+}
+
+/* Hover con efecto zoom y color turquesa */
+footer .social-links a img:hover {
+  filter: invert(72%) sepia(65%) saturate(503%) hue-rotate(122deg) brightness(95%) contrast(92%);
+  transform: scale(1.2);
+}

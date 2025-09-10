@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Ether | Contacto</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: #333;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      background-color: rgba(26, 26, 26, 0.9);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      height: 50px;
+      width: auto;
+    }
+
+    .menu-icon {
+      width: 30px;
+      height: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .menu-icon span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-icon.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-icon.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-icon.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    .overlay-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all .5s ease;
+    }
+
+    .overlay-menu.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .main-menu ul {
+      list-style: none;
+      text-align: center;
+    }
+
+    .main-menu ul li {
+      margin: 25px 0;
+    }
+
+    .main-menu ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      transition: color .3s;
+    }
+
+    .main-menu ul li a:hover {
+      color: #14e2bb;
+    }
+
+    .main-menu p {
+      margin-top: 40px;
+      font-style: italic;
+      color: #aaa;
+    }
+
+    .contact-section {
+      display: flex;
+      justify-content: center;
+      padding: 120px 20px 80px;
+    }
+
+    .contact-container {
+      display: flex;
+      max-width: 1100px;
+      width: 100%;
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    .contact-form {
+      flex: 1;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(6px);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .contact-form h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .contact-form button {
+      background: rgba(26, 26, 26, 0.9);
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .3s ease;
+    }
+
+    .contact-form button:hover {
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .contact-map {
+      flex: 1;
+      height: 500px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(200, 200, 200, 0.85);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(6px);
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 60px auto 40px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .contact-info .info-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1 1 220px;
+    }
+
+    .contact-info .info-box img {
+      width: 28px;
+      height: 28px;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    footer {
+      background-color: rgba(26, 26, 26, 0.9);
+      padding: 20px;
+      text-align: center;
+      margin-top: auto;
+      color: #fff;
+    }
+
+    footer .social-links {
+      margin-top: 15px;
+    }
+
+    footer .social-links a img {
+      filter: invert(100%);
+      transition: all 0.3s ease;
+    }
+
+    footer .social-links a img:hover {
+      filter: invert(72%) sepia(65%) saturate(503%) hue-rotate(122deg) brightness(95%) contrast(92%);
+      transform: scale(1.2);
+    }
+
+    .form-message {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .form-message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .form-message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .loading-spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #14e2bb;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 992px) {
+      .contact-container {
+        flex-direction: column;
+      }
+
+      .contact-map {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo-container">
+      <img src="img/Logo PNG.png" alt="Ether" class="logo">
+    </div>
+    <div class="menu-icon" id="menuToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <section class="overlay-menu" id="overlayMenu">
+    <div class="container">
+      <div class="row">
+        <div class="main-menu">
+          <ul>
+            <li><a href="inicio.html"> INICIO </a></li>
+            <li><a href="nuestrotrabajo.html"> NUESTRO TRABAJO </a></li>
+            <li><a href="quehacemos.html"> ¿QUÉ HACEMOS? </a></li>
+            <li><a href="contacto.html"> CONTACTO </a></li>
+          </ul>
+          <p>Creamos sellos únicos para tu marca.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <video autoplay muted loop id="bg-video">
+    <source src="img/bgvid2.mp4" type="video/mp4">
+    Tu navegador no soporta videos HTML5.
+  </video>
+
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-form">
+        <h2>Contact Us</h2>
+        <div id="form-message" class="form-message"></div>
+        <div class="loading" id="loading">
+          <div class="loading-spinner"></div>
+          <p>Enviando mensaje...</p>
+        </div>
+        <form action="https://formspree.io/f/xgvlnpkl" method="POST" id="contactForm">
+          <div class="form-group">
+            <input type="text" id="name" name="Nombre Completo" placeholder="Nombre Completo" required>
+            <input type="email" id="email" name="Correo Electrónico" placeholder="Correo Electrónico" required>
+          </div>
+          <input type="tel" id="numero" name="Número Celular" placeholder="Número de Teléfono" required>
+          <textarea id="servicio" name="Servicio que busca" placeholder="Servicio que buscas" required></textarea>
+          <button type="submit">Enviar Mensaje</button>
+        </form>
+      </div>
+      <div class="contact-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1869.910931805005!2d-101.17833285867245!3d20.39023338019027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842c8d71ab7b0a91%3A0x64ec8b851f0c42c2!2sAv.%20Benito%20Ju%C3%A1rez%2010%2C%20Centro%2C%2038400%20Valle%20de%20Santiago%2C%20Gto.!5e0!3m2!1ses!2smx!4v1757008240059!5m2!1ses!2smx"
+          width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-info">
+    <div class="info-box">
+      <img src="img/location-dot-solid-full (1).svg" alt="Location">
+      <p><strong>Oficina:</strong> Av. Benito Juarez #10, Zona Centro, Valle de Santiago</p>
+    </div>
+    <div class="info-box">
+      <img src="img/phone-solid-full.svg" alt="Phone">
+      <p><strong>Número:</strong> +52 456 186 3012</p>
+    </div>
+    <div class="info-box">
+      <img src="img/envelope-solid-full.svg" alt="Email">
+      <p><strong>Correo:</strong> contactoetherav@gmail.com</p>
+    </div>
+    <div class="info-box">
+      <img src="img/globe-solid-full.svg" alt="Website">
+      <p><strong>Sitio:</strong> etheraudiovisual.com</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container-fluid">
+      <div class="col-md-12">
+        <p> Creado por Ether AudioVisual &copy; </p>
+      </div>
+    </div>
+
+    <div class="social-links">
+      <a href="https://www.instagram.com/ether_audiovisual?igsh=YjFpbWpwcHpteHg=">
+        <img src="img/instagram-brands-solid-full.svg" alt="Instagram" width="30" height="30">
+      </a>
+      <a href="https://www.facebook.com/share/1EyEnYFTEj/?mibextid=wwXIfr">
+        <img src="img/facebook-brands-solid-full.svg" alt="Facebook" width="30" height="30">
+      </a>
+      <a href="https://www.tiktok.com/@ether.audiovisual?_t=ZS-8zNErN05z3Y&_r=1">
+        <img src="img/tiktok-brands-solid-full.svg" alt="TikTok" width="30" height="30">
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      document.getElementById('form-message').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+
+      const formData = new FormData(this);
+
+      try {
+        const response = await fetch(this.action, {
+          method: this.method,
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        document.getElementById('loading').style.display = 'none';
+
+        if (response.ok) {
+          showMessage('✅ Mensaje enviado correctamente!', 'success');
+          this.reset();
+        } else {
+          const errorData = await response.json();
+          if (errorData.errors) {
+            showMessage('❌ Error: ' + errorData.errors.map(error => error.message).join(', '), 'error');
+          } else {
+            showMessage('❌ Error al enviar el mensaje. Por favor, inténtalo de nuevo.', 'error');
+          }
+        }
+      } catch (error) {
+        document.getElementById('loading').style.display = 'none';
+        showMessage('❌ Error de conexión. Por favor, verifica tu conexión e inténtalo de nuevo.', 'error');
+      }
+    });
+
+    function showMessage(text, type) {
+      const messageDiv = document.getElementById('form-message');
+      messageDiv.textContent = text;
+      messageDiv.className = 'form-message ' + type;
+      messageDiv.style.display = 'block';
+
+      messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    const menuToggle = document.getElementById('menuToggle');
+    const overlayMenu = document.getElementById('overlayMenu');
+
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      overlayMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.overlay-menu a').forEach(a => {
+      a.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        overlayMenu.classList.remove('active');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      const clickFuera = !menuToggle.contains(e.target) && !overlayMenu.contains(e.target);
+      if (clickFuera && overlayMenu.classList.contains('active')) {
+        menuToggle.classList.remove('active');
+        overlayMenu.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+
+</html>
